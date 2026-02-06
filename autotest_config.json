@@ -1,0 +1,81 @@
+{
+    "description": "Autotest configuration file for dependency tree detection validation",
+    "version": 1.5,
+    "base_config": {
+        "validate_scan_output": true,
+        "_comment_validate_scan_output": "Whether to validate the scan output/exit code. Options: true | false. Default: true",
+        "scan_output": {
+            "security_scan_report_conclusion": "failure",
+            "_comment_security_scan_report_conclusion": "Optional. Expected scan report conclusion. Options: 'success' | 'failure'. This validates the security scan result status. If not provided, this check will not be performed.",
+            "total_libs_scanned": {
+                "gte": 1500
+            },
+            "_comment_total_libs_scanned": "Expected number of libraries scanned with comparison operator. Validates that the scan processed libraries."
+        },
+        "validate_dependency_tree": true,
+        "_comment_validate_dependency_tree": "Whether to validate the dependency tree. Options: true | false. Default: true",
+        "dependency_tree": {
+            "check_dependency_tree_detection_status": true,
+            "_comment_check_dependency_tree_detection_status": "Whether to check if dependency tree was successfully detected. Options: true | false. Default: true",
+            "expected_total_dependencies_number": {
+                "gte": 1800
+            },
+            "expected_direct_dependencies_number": {
+                "eq": 16
+            },
+            "expected_transitive_dependencies_number": {
+                "gte": 1800
+            },
+            "_comment_expected_dependencies_number": "Optional. Expected number of dependencies with comparison operator. Operators: gt (>), gte (>=), lt (<), lte (<=), eq (==). If not provided, this check will not be performed.",
+            "direct_dependencies_names_list": {
+                "eq": [
+                    "@react-native-website/update-redirects-0.0.0.tgz",
+                    "eslint-8.57.1.tgz",
+                    "eslint-plugin-prettier-5.2.3.tgz",
+                    "@react-native-website/lint-examples-0.0.0.tgz",
+                    "husky-9.1.7.tgz",
+                    "prettier-3.4.2.tgz",
+                    "pretty-quick-4.0.0.tgz",
+                    "eslint-config-prettier-9.1.0.tgz",
+                    "netlify-plugin-cache-1.0.3.tgz",
+                    "react-native-website-0.0.1.tgz",
+                    "@react-native-website/sync-api-0.0.1.tgz",
+                    "eslint-plugin-mdx-3.1.5.tgz",
+                    "@react-native-website/remark-lint-no-broken-external-links-0.0.1.tgz",
+                    "@react-native-website/remark-snackplayer-0.1.0.tgz",
+                    "@react-native-website/remark-codeblock-language-as-title-0.0.1.tgz",
+                    "eslint-plugin-yml-1.16.0.tgz"
+                ]
+            },
+            "_comment_dependencies_names_list": "Optional. Check specific libraries in direct dependencies. Operators: eq (==), contains (all items from expected list in actual), in(all items from actual list in expected), nin(actual list does not contain provided libs). If not provided, this check will not be performed.",
+            "validate_agent_versions": true,
+            "expected_agent_version": "",
+            "expected_plugin_version": "",
+            "_comment_agent_versions": "Optional. Expected agent and plugin versions. If not provided, this check will not be performed."
+        },
+        "validate_vulnerabilities_table": true,
+        "_comment_validate_vulnerabilities_table": "Whether to validate the vulnerabilities table. Options: true | false. Default: true",
+        "vulnerabilities_table": {
+            "check_vulnerabilities_table_structure": true,
+            "expected_total_vulnerabilities_number": {
+                "gte": 0
+            },
+            "vulnerabilities_ids_list": {
+                "contains": []
+            },
+            "_comment_ids_names_list": "Optional. Check specific libs ids (WS-2018-0111, CVE-2021-44906). Operators: eq (==), contains (all items from expected list in actual), in(all items from actual list in expected), nin(actual list does not contain provided libs). If not provided, this check will not be performed.",
+            "vulnerabilities_names_list": {
+                "contains": []
+            },
+            "_comment_vulnerabilities_names_list": "Optional. Check specific libs names (minimist-0.0.8.tgz). Operators: eq (==), contains (all items from expected list in actual), in(all items from actual list in expected), nin(actual list does not contain provided libs). If not provided, this check will not be performed."
+        },
+        "validate_scanner_logs": true,
+        "_comment_validate_scanner_logs": "Whether to validate scanner logs. Options: true | false. Default: false",
+        "logs": {
+            "check_scanner_logs": true,
+            "_comment_check_scanner_logs": "Whether to check scanner logs and attach them to Report Portal. Options: true | false. Default: true",
+            "expected_log_lines": [],
+            "_comment_expected_log_lines": "Optional. List of log lines to validate. Each entry should have an 'operator' (eq or regex) and 'value' (string or regex pattern). Example: [{'operator': 'eq', 'value': 'Python version: 3.11'}, {'operator': 'regex', 'value': 'Python version: \\d+\\.\\d+'}]. If not provided, only log attachment will be performed."
+        }
+    }
+}
